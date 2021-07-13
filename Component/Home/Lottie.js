@@ -141,7 +141,7 @@ export default function Lot() {
                 )
           ])).start()
       }
-    }, (2000));
+    }, (1500));
     
   }, [])
     return (
@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
   image:{
     width:'60%',
     marginRight:'auto',
-    marginLeft:'auto'
+    marginLeft:'auto',
+    opacity:0.9
   }
 })

@@ -8,7 +8,7 @@ import Perso from "./../../images/perso.png"
 import Endurance from "./../../images/endurance.png"
 import { useEffect } from 'react/cjs/react.development';
 const Selectionnable = ({name="Selectionnable",inspi,expi,round,type,destination,apnée})=> {
-    let {updateInspirationSauvegarde, updateExpirationSauvegarde,updateApnéeSauvegarde,updatenombreRound,updateTypeDeRespiration} = React.useContext(ZenContext)
+    let {updateInspirationSauvegarde, updateExpirationSauvegarde,updateApnéeSauvegarde,updatenombreRound,updateTypeDeRespiration,updateInspiration,updateExpiration,updateApnée} = React.useContext(ZenContext)
     const [image,setImage] = useState(Energie)
     const navigation = useNavigation();
     
@@ -22,6 +22,8 @@ const Selectionnable = ({name="Selectionnable",inspi,expi,round,type,destination
                         updateExpirationSauvegarde(expi)
                         updatenombreRound(round)
                         updateTypeDeRespiration(type)
+                        updateInspiration(inspi)
+                        updateExpiration(expi)
                         navigation.navigate(destination, {title:name});
                     }
                     else if (type===1 || type===2 || type===3)
@@ -30,6 +32,9 @@ const Selectionnable = ({name="Selectionnable",inspi,expi,round,type,destination
                         updateExpirationSauvegarde(expi)
                         updatenombreRound(round)
                         updateApnéeSauvegarde(apnée)
+                        updateInspiration(inspi)
+                        updateExpiration(expi)
+                        updateApnée(apnée)
                         updateTypeDeRespiration(type)
                         navigation.navigate(destination,{title:name});
                     }
@@ -38,10 +43,9 @@ const Selectionnable = ({name="Selectionnable",inspi,expi,round,type,destination
                     }
                 }
             }>
-                <ImageBackground style={styles.square} source={name==="Énergie" ? Energie : name==="Personnalisée"?Perso:name==="Récupérer"?Endurance:name==='Gérer son stress'?Stress : Endurance}>
-                <   Text style={styles.text}>{name}</Text>
+                <ImageBackground style={{width:"100%", height:"100%"}} source={name==="Respirer pour …\ngagner en énergie" ? Energie : name==="Personnaliser vos séances"?Perso:name==="Respirer pour …\nrécupérer"?Endurance:name==='Respirer pour …\ngérer son stress'?Stress : Endurance}>
+                    <Text style={styles.text}>{name}</Text>
                 </ImageBackground>
-                
             </Pressable>
     )
 }
@@ -49,17 +53,19 @@ export default Selectionnable;
 const styles  = StyleSheet.create({
     square:{
         height:300,
-        width:170,
+        width:"40%",
         backgroundColor:'white',
         marginTop:15,
         marginBottom:15,
-        marginHorizontal:'3.5%',
+        marginHorizontal:'5%',
         display:'flex',
-        justifyContent:'flex-end',
+        justifyContent:'flex-start',
         alignItems:"center",
         borderRadius:7,
     },
     text:{
-        marginBottom:20
+        marginTop:20,
+        color:'white',
+        textAlign:'center'
     }
 })

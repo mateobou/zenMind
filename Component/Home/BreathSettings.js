@@ -1,22 +1,16 @@
 import React, { useContext, useState, useEffect } from 'react';
 import LineSettings from './Line';
 import LottieView from 'lottie-react-native';
-import { Button, StyleSheet, Text, View, Modal, TouchableWithoutFeedback, Image, Animated, Easing } from 'react-native';
+import { StyleSheet, Text, View, Modal, TouchableWithoutFeedback, Image, Animated, Easing } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import settings from './../../images/settings.png'
-import DraggableView from './../Respiration/Slider_feedback/DraggableView'
-import TimeChoice from './timeChoice';
-import TimeChoice2 from './TimeChoice2';
-import SaveBreathing from './SaveBreathing';
+import settings from './../../images/Dame.png'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { ZenContext } from '../context/zenMindContext';
 import Breathing  from './../../images/breathing.svg';
 import Expiration  from './../../images/sneeze.svg';
 import Loading  from './../../images/loading.svg';
 import Dropdown from '../test_setTimer/Picker';
-import { roundToNearestPixel } from 'react-native/Libraries/Utilities/PixelRatio';
 import NameModal from '../Modal/NameModal';
-
 function BreathSettings()
 {   
     let [arr,setArr] = useState({
@@ -29,9 +23,9 @@ function BreathSettings()
         destination:'Breath'
     })
     let [anim, setAnim ] = useState()
-    let [nameModal, setNameModal ] = useState(false)
+    let [nameModal, setNameModal] = useState(false)
     let [progress, updateProgress]= useState(new Animated.Value(0)); 
-    let {typeDeRespiration,apnéeSauvegarde, inspirationSauvegarde, numberOfRound,expirationSauvegarde,updateTypeDeRespiration,launchBreath} = useContext(ZenContext);
+    let {typeDeRespiration,apnéeSauvegarde, inspirationSauvegarde, numberOfRound,expirationSauvegarde,updateTypeDeRespiration,updateInspiration,palettes,updateExpiration,expiration,updateApnée,apnée} = useContext(ZenContext);
     const navigation = useNavigation();
     useEffect(()=>{
         updateTypeDeRespiration(0)
@@ -47,17 +41,21 @@ function BreathSettings()
         <>
             <View style={styles.view}>
                 <Image source={styles.image} source={settings}/>
-                <Dropdown/>
-                <LineSettings image={Breathing} text="inspiration"/>
-                <LineSettings image={Expiration} text="expiration"/>
-                {typeDeRespiration!=0 && <LineSettings image={Expiration} text="apnée"/>}
-                <LineSettings image={Loading} text="rounds" unité="rounds"/>
+                <Dropdown modal={false}/>
+                <LineSettings image={Breathing} text="Inspiration"/>
+                <LineSettings image={Expiration} text="Expiration"/>
+                {typeDeRespiration!=0 && <LineSettings image={Expiration} text="Apnée"/>}
+                <LineSettings image={Loading} text="Rounds" unité="rounds"/>
                 <View style={styles.background}>
                     <Pressable title="Lancer la respiration" onPress={()=>{
-                        launchBreath()
+                        updateInspiration(inspirationSauvegarde)
+                        updateExpiration(expirationSauvegarde)
+                        updateApnée(apnéeSauvegarde)
+                        updateTypeDeRespiration(typeDeRespiration)
+                        console.log(inspirationSauvegarde)
                         navigation.navigate('Breath');
-                        setNameModal(true)
-                    }}style={styles.Bouton}><Text style={styles.text} style={{color:"#785852"}}>Lancer la respiration</Text></Pressable>
+                        //setNameModal(true)
+                    }}style={{...styles.Bouton,backgroundColor:palettes.paletteVerte.button}}><Text style={{...styles.text, color:palettes.paletteVerte.text}} >Lancer la respiration</Text></Pressable>
                     <Pressable style={styles.subtitleButton} onPress={()=>
                         {
                             anim.play(75,120)
@@ -71,7 +69,7 @@ function BreathSettings()
                             setNameModal(true)
                         }
 
-                        }><Text>Sauvegarder la respiration</Text><LottieView source={require('./../../images/validation.json')} progress={progress} ref={anim => {setAnim(anim)}} style={{width:50}} loop={false}/></Pressable>
+                        }><Text style={{fontSize:14,color:palettes.paletteVerte.text}}>Sauvegarder la respiration</Text><LottieView source={require('./../../images/validation.json')} progress={progress} ref={anim => {setAnim(anim)}} style={{width:50}} loop={false}/></Pressable>
                 </View>
             </View>
             {nameModal===true && <NameModal modal={nameModal} arr={{...arr}}/>}

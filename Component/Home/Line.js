@@ -3,11 +3,6 @@ import React, { useContext, useState } from 'react';
 import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { ZenContext } from '../context/zenMindContext';
 import TimeChoice from './timeChoice';
-import TimeChoice2 from './TimeChoice2';
-import TimeChoice3 from './TimeChoiceVertical';
-import TimeChoice4 from './TimeChoiceVertical4';
-import Expiration  from './../../images/sneeze.svg';
-import Loading  from './../../images/loading.svg';
 import { SvgUri } from 'react-native-svg';
 import Breathing from './../SVG/Breathing';
 
@@ -21,7 +16,7 @@ function LineSettings({image,text, unité})
             <View style={styles.line}>
                 <View style={styles.little_Line}>
                     <Breathing/>
-                    <Text style={{marginLeft:40}}>{text}</Text>
+                    <Text style={{marginLeft:40, fontSize:14}}>{text}</Text>
                 </View>
                 
                 <TimeChoice text={text}/>
@@ -60,6 +55,8 @@ const styles = StyleSheet.create({
         display:'flex',
         justifyContent:'center',
         alignItems:"center",
+        height:"6.12%",
+        marginVertical:"3%"
     },
     column:{
         width:"35%",

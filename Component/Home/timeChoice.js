@@ -56,43 +56,45 @@ export default function TimeChoice({text}) {
               {useNativeDriver: true}
           )}
           onMomentumScrollEnd={ev=>{
+            console.log(text)
             const index = Math.round(ev.nativeEvent.contentOffset.x/ITEM_SIZE)
             setDuration(timers[index]);
             switch(text){
-              case 'inspiration':
+              case 'Inspiration':
                 updateInspirationSauvegarde(timers[index]);
                 console.log(timers[index])
                 break;
-              case 'expiration': 
+              case 'Expiration': 
                 updateExpirationSauvegarde(timers[index]);
+                console.log(timers[index])
                 break;
-              case 'apnée': 
+              case 'Apnée': 
                 updateApnéeSauvegarde(timers[index]);
+                console.log(timers[index])
                 break;
-              case 'rounds': 
+              case 'Rounds': 
                 updatenombreRound(timers[index]);
+                console.log(timers[index])
                 break;
-
-            }
-          }}
-          style={{flexGrow:0, display:'flex', justifyContent:'center', alignItems:'center'}}
-          snapToInterval={ITEM_SIZE}
-          decelerationRate='fast'
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingHorizontal: ITEM_SPACING
-          }}
-          renderItem={({item, index})=>{
-              const inputRange = [
-                  (index - 1)*ITEM_SIZE,
-                  index*ITEM_SIZE,
-                  (index+1)*ITEM_SIZE
-              ]
-              const opacity = scrollX.interpolate({
-                  inputRange, 
-                  outputRange: [.4,1,.4]
-              })
-              
+              }
+            }}
+            style={{flexGrow:0, display:'flex', justifyContent:'center', alignItems:'center'}}
+            snapToInterval={ITEM_SIZE}
+            decelerationRate='fast'
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingHorizontal: ITEM_SPACING
+            }}
+            renderItem={({item, index})=>{
+                const inputRange = [
+                    (index - 1)*ITEM_SIZE,
+                    index*ITEM_SIZE,
+                    (index+1)*ITEM_SIZE
+                ]
+                const opacity = scrollX.interpolate({
+                    inputRange, 
+                    outputRange: [.4,1,.4]
+                })
               return <View style={{width: ITEM_SIZE, justifyContent:'center', alignItems:'center', }}>
                   <Animated.Text style={[styles.text,{
                       opacity

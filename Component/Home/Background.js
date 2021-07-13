@@ -1,25 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Button, ImageBackground, StyleSheet, Text, View } from 'react-native';
-import Background from './../../images/home-fond.png'
+import Background from './../../images/bg2.png'
 import { ZenContext } from '../context/zenMindContext';
 import HomePanel from '../Home_panel/HomePanel';
 import { FlatList } from 'react-native-gesture-handler';
-import MMKVStorage, { useMMKVStorage } from "react-native-mmkv-storage";
+import { useIsFocused } from '@react-navigation/native';
 function BackgroundD(){
-
-    let {MMKV} = useContext(ZenContext);
-    const [breathList, setBreathList] = useMMKVStorage("breathing", MMKV);
+    let {breathList, setBreathList} = useContext(ZenContext);
     breathList===undefined || breathList===null && setBreathList([{name:'Personnalisée'}])
-    console.log(breathList)
+    const [list,setList] = useState(breathList);
+    const isFocused = useIsFocused()
+    useEffect(()=>{
+        setList(breathList)
+        console.log(breathList)
+        return function (){
+            console.log("tchao")
+            console.log(breathList)
+            console.log("tchao")
+        }
+    },[isFocused])
     const rende = ({item})=>{
         return(
-            <HomePanel text={item.name==="Personnalisée"?'Inspi/Expi/apneé personnalisable':"Inspiration : "+item.inspi+" /Expiration : "+item.expi+" /Apnée : "+item.apnée} button={item.name==="Personnalisée"?'Paramétrer la respiration':'Lancer la respiration'} destination="Respiration" type={item.type} inspi={item.inspi} expi={item.expi} round={item.round} apnée={item.apnée} destination={item.destination} title={item.name}/>
+            <HomePanel text={item.name==="Personnalisée"?'Définir vos temps d’inspiration, d’expiration \n et d’apnée':"Inspiration : "+item.inspi+" /Expiration : "+item.expi+" /Apnée : "+item.apnée} button={item.name==="Personnalisée"?'Paramétrer la respiration':'Lancer la respiration'} destination={item.destination} type={item.type} inspi={item.inspi} expi={item.expi} round={item.round} apnée={item.apnée} title={item.name} data={item}/>
         )
     }
     return(
         <View>
             <ImageBackground source={Background} style={styles.home}>
-                <FlatList data={breathList} renderItem={rende} horizontal style={{position:'absolute', bottom:20}} keyExtractor={(item,index)=>index.toString()} showsHorizontalScrollIndicator={false}/>
+                {isFocused===true ?<FlatList data={list} renderItem={rende} horizontal style={{position:'absolute', bottom:20}} keyExtractor={(item,index)=>index.toString()} showsHorizontalScrollIndicator={false}/>:console.log('no error')}
             </ImageBackground>
         </View>
     )

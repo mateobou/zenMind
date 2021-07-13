@@ -4,15 +4,11 @@ import React from 'react';
 import { Button, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import saveRespiration from '../saveRespiration/saveRespiration';
 import EditInspiration from '../test_setTimer/editInspiration';
-import Background from './../../images/home-fond.png'
 import BackgroundD from './Background';
 import Breathing from './Breathing';
 import BreathSettings from './BreathSettings';
-import ButtonRespire from './Button_Respire';
 import choseRespiration from './choseRespiration';
 import Respiration from './Respiration';
-import Selectionnable from './Selection';
-import TimeChoice from './timeChoice';
 import TimeChoice3 from './TimeChoiceVertical';
 function Home(){
     const Stack = createStackNavigator();

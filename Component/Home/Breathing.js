@@ -10,7 +10,8 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import sunsetBackground from './../../images/sunset.png'
+
+import sunsetBackground from './../../images/bg3.png'
 import { ZenContext } from '../context/zenMindContext';
 import Lot from './Lottie';
 import Lottie from './Lottie';
@@ -50,7 +51,6 @@ export default function Breathing() {
         //cleanData()
         updateBreathStart(true)
         updateInspirationIsActive(true)
-        launchBreath()
         return ()=>cleanData()
     }, [])
     function Inspiration()
@@ -90,21 +90,20 @@ export default function Breathing() {
     }
     function Expiration()
     {
-        if (expirationIsActive) {
-                updateInterval(setInterval(() => {
-                  if (expiration>0){
-                    updateExpiration(expiration--);
-                    updateEtat("Expirez ... " + expiration)
-                    console.log("ExpirationIsActive")
-                    console.log(expirationIsActive) 
-                  }
-                  else{
-                    updateExpirationIsActive(false)
-                    ExpirationFin()
-                  }
-                    
-                }, 1000));
-            }
+      if (expirationIsActive) {
+        updateInterval(setInterval(() => {
+          if (expiration>0){
+            updateExpiration(expiration--);
+            updateEtat("Expirez ... " + expiration)
+            console.log("ExpirationIsActive")
+            console.log(expirationIsActive) 
+          }
+          else{
+            updateExpirationIsActive(false)
+            ExpirationFin()
+          }
+        }, 1000));
+      }
     }
     function InspirationFin()
     {
@@ -158,7 +157,6 @@ export default function Breathing() {
         clearInterval(interval)
         if(expiration<=0 && expirationIsActive && numberOfRound<nombreRound)
         {
-            
           updateExpirationIsActive(false);
           updateExpiration(expirationSauvegarde)
           updateNumberOfRound(numberOfRound+1);
@@ -232,10 +230,9 @@ export default function Breathing() {
                     },
                     ]}>
                 </Animated.View>
-            
-            <Lot/>
             <Text style={styles.text}>{etat}</Text>
             <Text style={styles.message}>{numberOfRound > nombreRound/2 && msg}</Text>
+            <Lot/>
             
         </ImageBackground>
     </View>
@@ -255,8 +252,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Menlo',
     color: colors.text,
     fontWeight: '900',
-    position:"absolute",
-    bottom:100,
+    marginTop:20,
+    marginBottom:20,
     width:"100%",
     textAlign:"center"
   },
@@ -265,8 +262,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Menlo',
     color: colors.text,
     fontWeight: '600',
-    position:"absolute",
-    bottom:50,
     width:"100%",
     textAlign:"center" 
   },
