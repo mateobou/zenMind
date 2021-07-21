@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Button, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import CompteRebour from '../counter/CompteRebour';
 import saveRespiration from '../saveRespiration/saveRespiration';
 import EditInspiration from '../test_setTimer/editInspiration';
 import BackgroundD from './Background';
@@ -27,16 +28,15 @@ function Home(){
                 <Stack.Screen name="Calme" component={TimeChoice3}>
                 </Stack.Screen>
                 <Stack.Screen name="Personnalisée" component={BreathSettings} options={{headerTitle:'Parametrer sa respiration'}}/>
-                <Stack.Screen name="Breath" component={Breathing} options={{headerTitle:'Respirer'}}/>
+                <Stack.Screen name="Breath" component={CompteRebour} options={{headerTitle:'Respirer'}}/>
+                <Stack.Screen name="Breathing" component={Breathing} options={{headerShown: false, tabBarVisible:false}}/>
                 <Stack.Screen name="Edit" component={EditInspiration}/>
                 <Stack.Screen name="saveRespiration" component={saveRespiration}/>
             </Stack.Navigator>
-            
         </View>
     )
 }
 export default Home;
-
 const styles = StyleSheet.create({
     home:{
         width:400,

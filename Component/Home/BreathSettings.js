@@ -3,7 +3,7 @@ import LineSettings from './Line';
 import LottieView from 'lottie-react-native';
 import { StyleSheet, Text, View, Modal, TouchableWithoutFeedback, Image, Animated, Easing } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import settings from './../../images/Dame.png'
+import settings from './../../images/meditation.png'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { ZenContext } from '../context/zenMindContext';
 import Breathing  from './../../images/breathing.svg';
@@ -11,6 +11,7 @@ import Expiration  from './../../images/sneeze.svg';
 import Loading  from './../../images/loading.svg';
 import Dropdown from '../test_setTimer/Picker';
 import NameModal from '../Modal/NameModal';
+import { ImageBackground } from 'react-native';
 function BreathSettings()
 {   
     let [arr,setArr] = useState({
@@ -27,9 +28,7 @@ function BreathSettings()
     let [progress, updateProgress]= useState(new Animated.Value(0)); 
     let {typeDeRespiration,apnéeSauvegarde, inspirationSauvegarde, numberOfRound,expirationSauvegarde,updateTypeDeRespiration,updateInspiration,palettes,updateExpiration,expiration,updateApnée,apnée} = useContext(ZenContext);
     const navigation = useNavigation();
-    useEffect(()=>{
-        updateTypeDeRespiration(0)
-    },[])
+    
     useEffect(()=>{
         if(anim!= undefined){
             setTimeout(() => {
@@ -40,7 +39,11 @@ function BreathSettings()
     return(
         <>
             <View style={styles.view}>
-                <Image source={styles.image} source={settings}/>
+                <View style={{height:240, width:"100%"}}> 
+                    <ImageBackground source={settings} style={styles.image} resizeMode="cover">
+
+                    </ImageBackground>
+                </View>
                 <Dropdown modal={false}/>
                 <LineSettings image={Breathing} text="Inspiration"/>
                 <LineSettings image={Expiration} text="Expiration"/>
@@ -53,7 +56,7 @@ function BreathSettings()
                         updateApnée(apnéeSauvegarde)
                         updateTypeDeRespiration(typeDeRespiration)
                         console.log(inspirationSauvegarde)
-                        navigation.navigate('Breath');
+                        navigation.navigate('Breath', {title:'Personnalisée'});
                         //setNameModal(true)
                     }}style={{...styles.Bouton,backgroundColor:palettes.paletteVerte.button}}><Text style={{...styles.text, color:palettes.paletteVerte.text}} >Lancer la respiration</Text></Pressable>
                     <Pressable style={styles.subtitleButton} onPress={()=>
@@ -100,9 +103,10 @@ const styles = StyleSheet.create({
         color:'white',
     },
     image:{
-        marginTop:50,
-        width:280,
-        marginBottom:0
+        height:240,
+        width:"95%",
+        marginHorizontal:"5%"
+        
     },
     view:{
         height:"100%",

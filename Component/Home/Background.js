@@ -21,7 +21,7 @@ function BackgroundD(){
     },[isFocused])
     const rende = ({item})=>{
         return(
-            <HomePanel text={item.name==="Personnalisée"?'Définir vos temps d’inspiration, d’expiration \n et d’apnée':"Inspiration : "+item.inspi+" /Expiration : "+item.expi+" /Apnée : "+item.apnée} button={item.name==="Personnalisée"?'Paramétrer la respiration':'Lancer la respiration'} destination={item.destination} type={item.type} inspi={item.inspi} expi={item.expi} round={item.round} apnée={item.apnée} title={item.name} data={item}/>
+            <HomePanel text={item.name==="Respiration personnalisée"?"Prenez une bouffée d'air via\n les respirations pré-enregistrées ou avec vos propres\n respirations":"Inspiration : "+item.inspi+" /Expiration : "+item.expi+" /Apnée : "+item.apnée} button={item.name==="Personnalisée"?'Libérer son souffle':'Lancer la respiration'} destination={item.destination} type={item.type} inspi={item.inspi} expi={item.expi} round={item.round} apnée={item.apnée} title={item.name} data={item}/>
         )
     }
     return(

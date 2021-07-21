@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
 import {StyleSheet, Text,View} from 'react-native';
-import MMKVStorage, { useMMKVStorage } from "react-native-mmkv-storage";
 import { ZenContext } from '../context/zenMindContext';
 export default function Line({date,value,type}){
     const {palettes} = useContext(ZenContext)

@@ -30,7 +30,7 @@ const ZenProvider = function ({ children }) {
     
     if (breathList === undefined || breathList===null)
     {
-      setBreathList([{name:'Personnalisée', destination:'Respiration'}])
+      setBreathList([{name:'Respiration personnalisée', destination:'Respiration'}])
     }
     //TIMER
     //Temps total en ms
@@ -49,7 +49,7 @@ const ZenProvider = function ({ children }) {
     let [etat, updateEtat] = useState("C'est parti !");
     const palettes = {
         paletteVerte:{
-            button:"#CBE7CB",
+            button:"#DEF7FF",
             text:"#24442A",
             icons:"#24442A"
         },
@@ -72,18 +72,13 @@ const ZenProvider = function ({ children }) {
         }
     }
     //Messages : 
-    const messages = [
-      "Votre respiration est à couper le souffle ! :)",
-      "Vous y êtes presque !",
-      "Wow, quel souffle ! ",
-      "1,2,3... soleil !",
-    ]
+    const messages = ["Calme, sérénité, force intérieure sont là !"]
     function updateFeedback(){
       setFeedback({date:new Date(),value:valueFeedback})
       setFeedbackHistory([...feedbackHistory,{...feedback}])
       return [...feedbackHistory,{...feedback}]
       //Si valueFeedback est null ?
-    }
+    } 
     //Fonctions
     function launchBreath()
     {

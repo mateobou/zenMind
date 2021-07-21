@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native';
 import { ZenContext } from '../context/zenMindContext';
 export default function Lot() {
       let [progress, updateProgress]= useState(new Animated.Value(0)); 
-      let {inspirationSauvegarde,breathStart, expirationSauvegarde, etat, expirationIsActive, apnéeIsActive, typeDeRespiration,apnéeSauvegarde,numberOfRound,nombreRound, inspirationIsActive} = useContext(ZenContext);
+      let {typeDeRespiration,inspirationSauvegarde,expirationSauvegarde,apnéeSauvegarde}= useContext(ZenContext)
   useEffect(()=>{
     setTimeout(() => {
       if(typeDeRespiration===1)
@@ -15,7 +15,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 1,
-                  duration: (inspirationSauvegarde*1000+1000),
+                  duration: (inspirationSauvegarde*1000),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -24,7 +24,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 1,
-                  duration: (apnéeSauvegarde*1000+1000),
+                  duration: (apnéeSauvegarde*1000+500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -33,7 +33,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 0,
-                  duration: (expirationSauvegarde*1000+1000),
+                  duration: (expirationSauvegarde*1000+1500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -49,7 +49,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 1,
-                  duration: (inspirationSauvegarde*1000+1000),
+                  duration: (inspirationSauvegarde*1000+500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -58,7 +58,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 0,
-                  duration: (apnéeSauvegarde*1000+1000),
+                  duration: (expirationSauvegarde*1000+500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -67,7 +67,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 0,
-                  duration: (expirationSauvegarde*1000+1000),
+                  duration: (apnéeSauvegarde*1000+1500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -83,7 +83,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 1,
-                  duration: (inspirationSauvegarde*1000+1000),
+                  duration: (inspirationSauvegarde*1000+500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -92,7 +92,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 1,
-                  duration: (apnéeSauvegarde*1000+1000),
+                  duration: (apnéeSauvegarde*1000+500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -101,7 +101,7 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 0,
-                  duration: (expirationSauvegarde*1000+1000),
+                  duration: (expirationSauvegarde*1000+1500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
@@ -110,35 +110,33 @@ export default function Lot() {
                 progress,
                 {
                   toValue: 0,
-                  duration: (inspirationSauvegarde*1000+1000),
+                  duration: (inspirationSauvegarde*1000+500),
                   easing: Easing.linear(),
                   useNativeDriver: true
                 }
-              ),
-              
+              ),  
           ])).start()
       }
       else{
         Animated.loop(
           Animated.sequence([
-              Animated.timing(
-                  progress,
-                  {
-                    toValue: 1,
-                    duration: (inspirationSauvegarde*1000+1000),
-                    easing: Easing.linear(),
-                    useNativeDriver: true
-                  }
-                ),
-                Animated.timing(
-                  progress,
-                  {
-                    toValue: 0,
-                    duration: (expirationSauvegarde*1000+1000),
-                    easing: Easing.linear(),
-                    useNativeDriver: true
-                  }
-                )
+            Animated.timing(
+                progress,
+                {
+                  toValue: 1,
+                  duration: (inspirationSauvegarde*1000),
+                  easing: Easing.linear(),
+                  useNativeDriver: true
+                }
+              ),
+            Animated.timing(
+              progress,
+              {
+                toValue: 0,
+                duration: (expirationSauvegarde*1000+2000),
+                easing: Easing.linear(),
+                useNativeDriver: true
+              })
           ])).start()
       }
     }, (1500));
@@ -151,7 +149,7 @@ export default function Lot() {
   }
 const styles = StyleSheet.create({
   image:{
-    width:'60%',
+    width:'40%',
     marginRight:'auto',
     marginLeft:'auto',
     opacity:0.9
