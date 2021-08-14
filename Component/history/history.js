@@ -35,7 +35,7 @@ export default function History(){
         <ScrollView contentContainerStyle={{...styles.history}} style={{height:'100%'}} >
             <Text style={styles.title}>Historique</Text>
             {TestFeedback() === true && <Image source={Perso} style={{width:"90%",height:300}}/>}
-            {TestFeedback() === true && feedbackHistory.map((history,index)=><Line date={history.date} value={history.value} type={history.type} index={index}/>)}
+            {TestFeedback() === true && feedbackHistory.slice(0).reverse().map((history,index)=><Line date={history.date} value={history.value} type={history.type} index={index} respi={history.typeRespiration}/>)}
             {TestFeedback() === false ? <LottieView source={require('./../../images/empty.json')} style={{width:"100%", marginTop:10}} autoPlay loop/> : console.log('error')}
             {TestFeedback() === false && <Text>Il semblerait que votre historique est vide :/</Text>}
         </ScrollView>   

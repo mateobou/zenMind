@@ -14,6 +14,11 @@ import Energie from "./../../images/energiser.jpg";
 import Endurance from "./../../images/endurance.jpg";
 import Stress from './../../images/Stress.jpg'
 import Counter from '../Respiration/Counter';
+import Message from '../Respiration/Message';
+import { ZenContext } from '../context/zenMindContext';
+import { useIsFocused } from '@react-navigation/native';
+import soundTest from '../soundTest/soundTest';
+import SoundTest from '../soundTest/soundTest';
 const { width } = Dimensions.get('window');
 const colors = {
   black: '#323F4E',
@@ -22,44 +27,28 @@ const colors = {
 };
     const ITEM_SIZE = width * 0.38;
       export default function Breathing({navigation,route}) {
+        const isFocused = useIsFocused()
+  
+    
         let title;
-        route.params === undefined ? title="Personnalisée":title= route.params.title 
-      const SoundMeditation = require('react-native-sound');
-      SoundMeditation.setCategory('Playback');
-      let meditation = new SoundMeditation('meditationsound.mp3', SoundMeditation.MAIN_BUNDLE, (error) => {
-        if (error) {
-            console.log('failed to load the sound', error);
-            return;
-        }
-        // loaded successfully
-        console.log('duration in seconds: ' + meditation.getDuration() + 'number of channels: ' + meditation.getNumberOfChannels());
-        // Play the sound with an onEnd callback
-        meditation.play((success) => {
-            if (success) {
-            console.log('successfully finished playing');
-            } else {
-            console.log('playback failed due to audio decoding errors');
-            }
-          });
-        });
-    React.useEffect(()=>{ 
-        //updateInspirationIsActive(true)
-        meditation.stop(()=>
-          meditation.play())
-        return ()=>{
-          meditation.stop()
-        }
-    }, [])
+        const [sound, setSound] = React.useState();
+        route.params === undefined ? title="Personnalisée":title= route.params.title;
+        let {updateNumberOfRound,breathStart} = React.useContext(ZenContext)
+
 return (
     <>
       <View style={styles.container}>
         <ImageBackground source={title==="Respirer pour …\ngagner en énergie"? Energie : title==="Respirer pour …\nrécupérer"? Endurance : title==="Respirer pour …\ngérer son stress"? Stress:title==='Personnaliser vos séances' ?title===undefined || title===null :sunsetBackground} style={{width:"100%", height:"100%"}}>
           <BreathProgressBar/>
-          <Counter/>
-          <Lot/>
+          <Counter func={console.log("hello")}/>
+
+          <Message/>
+          <SoundTest/>
           <Pressable style={{backgroundColor:'white',width:'40%', height:'7%',borderRadius:5,display:'flex',alignItems:'center',justifyContent:'center',marginHorizontal:'30%',position:'absolute', bottom:50}} onPress={()=>{
             navigation.navigate("Home")
-            }}><Text>Sortir</Text></Pressable>
+            updateNumberOfRound(1)
+        
+            }}><Text style={{fontWeight:'bold'}}>Sortir</Text></Pressable>  
         </ImageBackground>
       </View>
     </>

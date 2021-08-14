@@ -5,13 +5,14 @@ import Sun from './../../images/sun.png';
 import MMKVStorage, { useMMKVStorage } from "react-native-mmkv-storage";
 import { ZenContext } from "../context/zenMindContext";
 function ButtonLight({destination,text,onPress})
-{   
+{  
+    const {palettes} = useContext(ZenContext) 
     const navigation = useNavigation()
     return(
         <Pressable 
             onPress={onPress}
-            style={styles.backgroundButton}>
-                    <Text style={{color:"white"}}>{text}</Text>
+            style={{...styles.backgroundButton,backgroundColor:palettes.paletteVerte.button}}>
+                    <Text style={{color:"black", fontWeight:'bold'}}>{text}</Text>
         </Pressable>
     );
 }
@@ -25,7 +26,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
         position:'absolute',
         bottom:25,
-        backgroundColor:'#FFBDAF',
         borderRadius:5
     }
 })

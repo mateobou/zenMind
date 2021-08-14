@@ -27,7 +27,7 @@ function Home(){
                 </Stack.Screen>
                 <Stack.Screen name="Calme" component={TimeChoice3}>
                 </Stack.Screen>
-                <Stack.Screen name="Personnalisée" component={BreathSettings} options={{headerTitle:'Parametrer sa respiration'}}/>
+                <Stack.Screen name="Personnalisée" component={BreathSettings} options={{headerTitle:'Paramétrer sa respiration'}}/>
                 <Stack.Screen name="Breath" component={CompteRebour} options={{headerTitle:'Respirer'}}/>
                 <Stack.Screen name="Breathing" component={Breathing} options={{headerShown: false, tabBarVisible:false}}/>
                 <Stack.Screen name="Edit" component={EditInspiration}/>

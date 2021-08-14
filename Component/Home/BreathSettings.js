@@ -3,7 +3,7 @@ import LineSettings from './Line';
 import LottieView from 'lottie-react-native';
 import { StyleSheet, Text, View, Modal, TouchableWithoutFeedback, Image, Animated, Easing } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-import settings from './../../images/meditation.png'
+import settings from './../../images/settings.png'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { ZenContext } from '../context/zenMindContext';
 import Breathing  from './../../images/breathing.svg';
@@ -46,11 +46,11 @@ function BreathSettings()
                 </View>
                 <Dropdown modal={false}/>
                 <LineSettings image={Breathing} text="Inspiration"/>
-                <LineSettings image={Expiration} text="Expiration"/>
-                {typeDeRespiration!=0 && <LineSettings image={Expiration} text="Apnée"/>}
+                {typeDeRespiration===1 ? <LineSettings image={Expiration} text="Expiration"/> : typeDeRespiration===2 ?<LineSettings image={Expiration} text="Apnée"/>: <LineSettings image={Expiration} text="Expiration"/> }
+                {typeDeRespiration===1 ? <LineSettings image={Expiration} text="Apnée"/> :  typeDeRespiration===2 || typeDeRespiration===3 ?<LineSettings image={Expiration} text="Expiration"/> : null }
                 <LineSettings image={Loading} text="Rounds" unité="rounds"/>
                 <View style={styles.background}>
-                    <Pressable title="Lancer la respiration" onPress={()=>{
+                    <Pressable title="Lancer la respiration" style={{fontWeight:'bold'}} onPress={()=>{
                         updateInspiration(inspirationSauvegarde)
                         updateExpiration(expirationSauvegarde)
                         updateApnée(apnéeSauvegarde)
@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
         alignItems:'center',
         borderRadius:7,
         marginTop:20,
-        zIndex:1
+        zIndex:1,
+        fontWeight:'bold'
         
     },
     background:{
@@ -100,12 +101,12 @@ const styles = StyleSheet.create({
         alignItems:"center",
     },
     text:{
-        color:'white',
+        fontWeight:'bold'
     },
     image:{
         height:240,
-        width:"95%",
-        marginHorizontal:"5%"
+        width:"60%",
+        marginLeft:'30%'
         
     },
     view:{
@@ -127,6 +128,7 @@ const styles = StyleSheet.create({
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
-        flexDirection:'row'
+        flexDirection:'row',
+        fontWeight:'bold'
     }
 })

@@ -14,7 +14,7 @@ const ZenProvider = function ({ children }) {
     ]*/
     let [numberOfRound, updateNumberOfRound] = useState(1);
     let [typeDeRespiration, updateTypeDeRespiration] = useState(0);
-    let [inspirationIsActive, updateInspirationIsActive] = useState(false);
+    let [inspirationIsActive, updateInspirationIsActive] = useState(true);
     let [expirationIsActive, updateExpirationIsActive] = useState(false);
     let [nombreRound, updatenombreRound] = useState(1);
     let [inspirationSauvegarde, updateInspirationSauvegarde]= useState(1);
@@ -30,15 +30,8 @@ const ZenProvider = function ({ children }) {
     
     if (breathList === undefined || breathList===null)
     {
-      setBreathList([{name:'Respiration personnalisée', destination:'Respiration'}])
+      setBreathList([{name:"Prenez l'air", destination:'Respiration'}])
     }
-    //TIMER
-    //Temps total en ms
-        let [tempsTotal, updateTempsTotal] = useState();
-    //Temps passé 
-        let [tempsPassé, updateTempsPassé] = useState(0);
-    //Temps restant 
-        let [tempsRestant, updateTempsRestant] = useState();
     //variables end 
     /*État du timer*/        
     //Inspiration temps par cycle :
@@ -51,7 +44,7 @@ const ZenProvider = function ({ children }) {
         paletteVerte:{
             button:"#DEF7FF",
             text:"#24442A",
-            icons:"#24442A"
+            icons:"#3A8DAA"
         },
         palette2:
         {
@@ -80,14 +73,9 @@ const ZenProvider = function ({ children }) {
       //Si valueFeedback est null ?
     } 
     //Fonctions
-    function launchBreath()
-    {
-      console.log("Launching")
-    }
   return (
     <ZenContext.Provider
-      value={{inspiration, expiration,breathStart, updateBreathStart, launchBreath,updateInspirationIsActive,updateExpirationIsActive,inspirationIsActive,expirationIsActive, etat, updateInspiration,updateExpiration,updateTypeDeRespiration, updateEtat,typeDeRespiration, nombreRound, updatenombreRound,apnée, updateApnée, updateApnéeSauvegarde,inspirationSauvegarde,expirationSauvegarde,apnéeSauvegarde, updateInspirationSauvegarde,updateExpirationSauvegarde,messages,apnéeSauvegarde, numberOfRound, updateNumberOfRound,MMKV,valueFeedback,updateValueFeedback,feedback,setFeedback,updateFeedback,breathList, setBreathList,nameBreath, setNameBreath,numberCycle, setNumberCycle,Test, setTest,palettes}}
-    >
+      value={{inspiration, expiration,breathStart, updateBreathStart,updateInspirationIsActive,updateExpirationIsActive,inspirationIsActive,expirationIsActive, etat, updateInspiration,updateExpiration,updateTypeDeRespiration, updateEtat,typeDeRespiration, nombreRound, updatenombreRound,apnée, updateApnée, updateApnéeSauvegarde,inspirationSauvegarde,expirationSauvegarde,apnéeSauvegarde, updateInspirationSauvegarde,updateExpirationSauvegarde,messages,apnéeSauvegarde, numberOfRound, updateNumberOfRound,MMKV,valueFeedback,updateValueFeedback,feedback,setFeedback,updateFeedback,breathList, setBreathList,nameBreath, setNameBreath,numberCycle, setNumberCycle,Test, setTest,palettes}}>
       {children}
     </ZenContext.Provider>
   );

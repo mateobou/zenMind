@@ -2,146 +2,64 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Animated, Easing, StyleSheet, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { ZenContext } from '../context/zenMindContext';
-export default function Lot() {
+export default function Lot({stat}) {
       let [progress, updateProgress]= useState(new Animated.Value(0)); 
       let {typeDeRespiration,inspirationSauvegarde,expirationSauvegarde,apnéeSauvegarde}= useContext(ZenContext)
+      function Inspiration(temps)
+      {
+        Animated.loop(
+          Animated.sequence([
+              Animated.timing(
+                progress,
+                {
+                  toValue: 1,
+                  duration: (temps*1000),
+                  easing: Easing.linear(),
+                  useNativeDriver: true
+                }
+              )
+              
+          ])).start()
+      }
+      function Expiration(temps)
+      {
+        Animated.loop(
+          Animated.sequence([
+              Animated.timing(
+                progress,
+                {
+                  toValue: 0,
+                  duration: (temps*1000),
+                  easing: Easing.linear(),
+                  useNativeDriver: true
+                }
+              )
+              
+          ])).start()
+      }
+      
+      
   useEffect(()=>{
-    setTimeout(() => {
-      if(typeDeRespiration===1)
+
+      if(stat==='inspiration')
       {
-        Animated.loop(
-          Animated.sequence([
-              Animated.timing(
-                progress,
-                {
-                  toValue: 1,
-                  duration: (inspirationSauvegarde*1000),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              Animated.timing(
-                progress,
-                {
-                  toValue: 1,
-                  duration: (apnéeSauvegarde*1000+500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              Animated.timing(
-                progress,
-                {
-                  toValue: 0,
-                  duration: (expirationSauvegarde*1000+1500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              
-          ])).start()
+        Inspiration(inspirationSauvegarde)
       }
-      else if(typeDeRespiration===2)
+      else if(stat==="expiration")
       {
-        Animated.loop(
-          Animated.sequence([
-              Animated.timing(
-                progress,
-                {
-                  toValue: 1,
-                  duration: (inspirationSauvegarde*1000+500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              Animated.timing(
-                progress,
-                {
-                  toValue: 0,
-                  duration: (expirationSauvegarde*1000+500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              Animated.timing(
-                progress,
-                {
-                  toValue: 0,
-                  duration: (apnéeSauvegarde*1000+1500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              
-          ])).start()
+        console.log('expiratipizzaon')
+        Expiration(expirationSauvegarde)
       }
-      else if(typeDeRespiration===3)
+      else if(stat==='apnéeAprèsInspi')
       {
-        Animated.loop(
-          Animated.sequence([
-              Animated.timing(
-                progress,
-                {
-                  toValue: 1,
-                  duration: (inspirationSauvegarde*1000+500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              Animated.timing(
-                progress,
-                {
-                  toValue: 1,
-                  duration: (apnéeSauvegarde*1000+500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              Animated.timing(
-                progress,
-                {
-                  toValue: 0,
-                  duration: (expirationSauvegarde*1000+1500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-              Animated.timing(
-                progress,
-                {
-                  toValue: 0,
-                  duration: (inspirationSauvegarde*1000+500),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),  
-          ])).start()
+        typeDeRespiration===1 || typeDeRespiration===3 ? Inspiration(apnéeSauvegarde): Expiration(apnéeSauvegarde)
       }
       else{
-        Animated.loop(
-          Animated.sequence([
-            Animated.timing(
-                progress,
-                {
-                  toValue: 1,
-                  duration: (inspirationSauvegarde*1000),
-                  easing: Easing.linear(),
-                  useNativeDriver: true
-                }
-              ),
-            Animated.timing(
-              progress,
-              {
-                toValue: 0,
-                duration: (expirationSauvegarde*1000+2000),
-                easing: Easing.linear(),
-                useNativeDriver: true
-              })
-          ])).start()
+        typeDeRespiration===2 ? Expiration(apnéeSauvegarde) : Inspiration(apnéeSauvegarde)
       }
-    }, (1500));
+
     
-  }, [])
+  }, [stat])
     return (
       <LottieView source={require('./../../images/soleil.json')} progress={progress} style={styles.image} autoPlay={false}>
       </LottieView>
